@@ -22,10 +22,12 @@ namespace SampleCoreWebApi.Controllers
         //{id?1}
         //{id=321}
         //{id:int}
-        [HttpGet("{id:int}")]
-        public string Get(int id)
+        //public string Get(int id)
+
+        [HttpGet("{id}")]
+        public string Get([FromQuery] int id, string jquery)
         {
-            return $"value {id}";
+            return $"value {id} {jquery}";
         }
 
         // POST api/values

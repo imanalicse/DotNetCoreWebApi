@@ -1,0 +1,3 @@
+Migration command:
+
+Add-Migration UpdatePropertiesOfSupplierTable -c UndivideDataContext -p WebAlive.Undivide.Main.Repository
