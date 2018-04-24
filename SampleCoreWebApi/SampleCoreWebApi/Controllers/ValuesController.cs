@@ -4,14 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace SampleCoreWebApi.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        // GET: api/values
+        // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
@@ -19,15 +17,10 @@ namespace SampleCoreWebApi.Controllers
         }
 
         // GET api/values/5
-        //{id?1}
-        //{id=321}
-        //{id:int}
-        //public string Get(int id)
-
         [HttpGet("{id}")]
-        public string Get([FromQuery] int id, string jquery)
+        public string Get(int id)
         {
-            return $"value {id} {jquery}";
+            return "value";
         }
 
         // POST api/values
