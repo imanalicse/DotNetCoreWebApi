@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -16,17 +17,27 @@ namespace SampleCoreWebApi.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/values/5
+        // optainal route values: {id?}
+        //Default values: {id=5}
+        //Contraints: {id:int}      
+        // GET api/values/5     
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id, string query)
         {
-            return "value";
+
+            return Ok(new Value { Id = id, Text = "value" + id });
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]Value value)
         {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            // save the value to DB
+            return CreatedAtAction("Get", new { id = value.Id }, value);
         }
 
         // PUT api/values/5
@@ -40,5 +51,11 @@ namespace SampleCoreWebApi.Controllers
         public void Delete(int id)
         {
         }
+    }
+
+    public class Value {
+        public int Id { get; set; }
+        [MinLength(3)]
+        public string Text { get; set; }
     }
 }
